@@ -19,8 +19,11 @@ export default function Home() {
     console.log(x, y);
     const newBoard = structuredClone(board);
     newBoard[y][x] = turnColor;
-    setTurnColor(2 / turnColor);
-    setBoard(newBoard);
+    if (board[y + 1] !== undefined && board[y + 1][x] === 2 / turnColor) {
+      newBoard[y][x] = turnColor;
+      setTurnColor(2 / turnColor);
+      setBoard(newBoard);
+    }
   };
   return (
     <div className={styles.container}>

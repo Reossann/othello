@@ -19,11 +19,7 @@ export default function Home() {
     console.log(x, y);
     const newBoard = structuredClone(board);
     newBoard[y][x] = turnColor;
-    if (turnColor === 1) {
-      setTurnColor(2);
-    } else {
-      setTurnColor(1);
-    }
+    setTurnColor(turnColor * -1);
     setBoard(newBoard);
   };
   return (

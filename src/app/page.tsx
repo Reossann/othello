@@ -22,42 +22,50 @@ export default function Home() {
     newBoard[y][x] = turnColor;
     for (let i = 0; i < directions.length; i++)
       if (board[y + 1] !== undefined && board[y + 1][x] === 2 / turnColor) {
-        newBoard[(y, y + 1)][x] = turnColor;
+        newBoard[y][x] = turnColor;
+        newBoard[y + 1][x] = turnColor;
         setTurnColor(2 / turnColor);
         setBoard(newBoard);
       }
     if (board[y + 1][x + 1] !== undefined && board[y + 1][x + 1] === 2 / turnColor) {
-      newBoard[(y, y + 1)][x + 1] = turnColor;
+      newBoard[y][x + 1] = turnColor;
+      newBoard[y + 1][x + 1] = turnColor;
       setTurnColor(2 / turnColor);
       setBoard(newBoard);
     }
     if (board[y - 1][x + 1] !== undefined && board[y - 1][x + 1] === 2 / turnColor) {
-      newBoard[(y, y - 1)][x + 1] = turnColor;
+      newBoard[y][x + 1] = turnColor;
+      newBoard[y - 1][x + 1] = turnColor;
       setTurnColor(2 / turnColor);
       setBoard(newBoard);
     }
     if (board[y + 1][x - 1] !== undefined && board[y + 1][x - 1] === 2 / turnColor) {
-      newBoard[(y, y + 1)][x - 1] = turnColor;
+      newBoard[y][x - 1] = turnColor;
+      newBoard[y + 1][x - 1] = turnColor;
       setTurnColor(2 / turnColor);
       setBoard(newBoard);
     }
     if (board[y - 1][x - 1] !== undefined && board[y - 1][x - 1] === 2 / turnColor) {
-      newBoard[(y, y - 1)][x - 1] = turnColor;
+      newBoard[y][x - 1] = turnColor;
+      newBoard[y - 1][x - 1] = turnColor;
       setTurnColor(2 / turnColor);
       setBoard(newBoard);
     }
     if (board[y - 1] !== undefined && board[y - 1][x] === 2 / turnColor) {
-      newBoard[(y, y - 1)][x] = turnColor;
+      newBoard[y][x] = turnColor;
+      newBoard[y - 1][x] = turnColor;
       setTurnColor(2 / turnColor);
       setBoard(newBoard);
     }
     if (board[x + 1] !== undefined && board[y][x + 1] === 2 / turnColor) {
-      newBoard[y][(x, x + 1)] = turnColor;
+      newBoard[y][x] = turnColor;
+      newBoard[y][x + 1] = turnColor;
       setTurnColor(2 / turnColor);
       setBoard(newBoard);
     }
     if (board[x - 1] !== undefined && board[y][x - 1] === 2 / turnColor) {
-      newBoard[y][(x, x - 1)] = turnColor;
+      newBoard[y][x] = turnColor;
+      newBoard[y][x - 1] = turnColor;
       setTurnColor(2 / turnColor);
       setBoard(newBoard);
     }

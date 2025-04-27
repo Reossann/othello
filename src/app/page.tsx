@@ -20,7 +20,22 @@ export default function Home() {
     const newBoard = structuredClone(board);
     newBoard[y][x] = turnColor;
     if (board[y + 1] !== undefined && board[y + 1][x] === 2 / turnColor) {
-      newBoard[y][x] = turnColor;
+      newBoard[(y, y + 1)][x] = turnColor;
+      setTurnColor(2 / turnColor);
+      setBoard(newBoard);
+    }
+    if (board[y - 1] !== undefined && board[y - 1][x] === 2 / turnColor) {
+      newBoard[(y, y - 1)][x] = turnColor;
+      setTurnColor(2 / turnColor);
+      setBoard(newBoard);
+    }
+    if (board[x + 1] !== undefined && board[y][x + 1] === 2 / turnColor) {
+      newBoard[y][(x, x + 1)] = turnColor;
+      setTurnColor(2 / turnColor);
+      setBoard(newBoard);
+    }
+    if (board[x - 1] !== undefined && board[y][x - 1] === 2 / turnColor) {
+      newBoard[y][(x, x - 1)] = turnColor;
       setTurnColor(2 / turnColor);
       setBoard(newBoard);
     }

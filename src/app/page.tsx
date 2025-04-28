@@ -29,15 +29,21 @@ export default function Home() {
     console.log(x, y);
     const newBoard = structuredClone(board);
     newBoard[y][x] = turnColor;
+
     for (let i = 0; i < directions.length; i++)
-      for (let num = 0; num < 8; num++) {
-        {
-          if (board[y + 1 + num] !== undefined && board[y + 1 + num][x] === 2 / turnColor) {
-            newBoard[y + 1 + num][x] = turnColor;
+      if (board[y + 1] !== undefined && board[y + 1][x] === 2 / turnColor) {
+        for (let num1 = 0; num1 < 8; num1++) {
+          if (board[y + 1 + num1][x] === turnColor) {
+            newBoard[y][x] = turnColor;
+            for (let num = 0; num < num1; num++) {
+              newBoard[y + 1 + num][x] = turnColor;
+            }
+
+            setTurnColor(2 / turnColor);
+            setBoard(newBoard);
+            break;
           }
         }
-        setTurnColor(2 / turnColor);
-        setBoard(newBoard);
       }
 
     if (board[y + 1][x + 1] !== undefined && board[y + 1][x + 1] === 2 / turnColor) {

@@ -16,77 +16,42 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const directions = [
+    [1, 0],
+    [1, -1],
     [0, -1],
     [-1, -1],
     [-1, 0],
     [-1, 1],
-    [0, +1],
-    [+1, +1],
-    [+1, 0],
-    [+1, -1],
+    [0, 1],
+    [1, 1],
   ];
   const clickHandler = (x: number, y: number) => {
     console.log(x, y);
     const newBoard = structuredClone(board);
     newBoard[y][x] = turnColor;
 
-    for (let i = 0; i < directions.length; i++)
-      if (board[y + 1] !== undefined && board[y + 1][x] === 2 / turnColor) {
-        for (let num1 = 0; num1 < 8; num1++) {
-          if (board[y + 1 + num1][x] === turnColor) {
+    for (const [dy, dx] of directions) {
+      console.log(dy, dx);
+      if (board[y + dy][x + dx] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
+        midLoop: for (let num1 = 1; num1 < 9; num1++) {
+          console.log(num1);
+          if (board[y + dy * num1][x + dx * num1] === 0) {
+            break midLoop;
+          }
+          if (board[y + dy * num1][x + dx * num1] === turnColor) {
             newBoard[y][x] = turnColor;
-            for (let num = 0; num < num1; num++) {
-              newBoard[y + 1 + num][x] = turnColor;
+            for (let num = 1; num < num1; num++) {
+              newBoard[y + dy * num][x + dx * num] = turnColor;
+              setBoard(newBoard);
+              console.log(newBoard);
             }
-
-            setTurnColor(2 / turnColor);
-            setBoard(newBoard);
-            break;
+            break midLoop;
           }
         }
       }
-
-    if (board[y + 1][x + 1] !== undefined && board[y + 1][x + 1] === 2 / turnColor) {
-      newBoard[y][x + 1] = turnColor;
-      newBoard[y + 1][x + 1] = turnColor;
-      setTurnColor(2 / turnColor);
-      setBoard(newBoard);
-    }
-    if (board[y - 1][x + 1] !== undefined && board[y - 1][x + 1] === 2 / turnColor) {
-      newBoard[y][x + 1] = turnColor;
-      newBoard[y - 1][x + 1] = turnColor;
-      setTurnColor(2 / turnColor);
-      setBoard(newBoard);
-    }
-    if (board[y + 1][x - 1] !== undefined && board[y + 1][x - 1] === 2 / turnColor) {
-      newBoard[y][x - 1] = turnColor;
-      newBoard[y + 1][x - 1] = turnColor;
-      setTurnColor(2 / turnColor);
-      setBoard(newBoard);
-    }
-    if (board[y - 1][x - 1] !== undefined && board[y - 1][x - 1] === 2 / turnColor) {
-      newBoard[y][x - 1] = turnColor;
-      newBoard[y - 1][x - 1] = turnColor;
-      setTurnColor(2 / turnColor);
-      setBoard(newBoard);
-    }
-    if (board[y - 1] !== undefined && board[y - 1][x] === 2 / turnColor) {
-      newBoard[y][x] = turnColor;
-      newBoard[y - 1][x] = turnColor;
-      setTurnColor(2 / turnColor);
-      setBoard(newBoard);
-    }
-    if (board[x + 1] !== undefined && board[y][x + 1] === 2 / turnColor) {
-      newBoard[y][x] = turnColor;
-      newBoard[y][x + 1] = turnColor;
-      setTurnColor(2 / turnColor);
-      setBoard(newBoard);
-    }
-    if (board[x - 1] !== undefined && board[y][x - 1] === 2 / turnColor) {
-      newBoard[y][x] = turnColor;
-      newBoard[y][x - 1] = turnColor;
-      setTurnColor(2 / turnColor);
-      setBoard(newBoard);
+      if (dy === 1 && dx === 1) {
+        setTurnColor(2 / turnColor);
+      }
     }
   };
   return (

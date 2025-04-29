@@ -32,7 +32,7 @@ export default function Home() {
 
     for (const [dy, dx] of directions) {
       console.log(dy, dx);
-      if (board[y + dy][x + dx] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
+      if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
         midLoop: for (let num1 = 1; num1 < 9; num1++) {
           console.log(num1);
           if (board[y + dy * num1][x + dx * num1] === 0) {
@@ -49,9 +49,11 @@ export default function Home() {
           }
         }
       }
+
       if (dy === 1 && dx === 1) {
         setTurnColor(2 / turnColor);
       }
+      continue;
     }
   };
   return (

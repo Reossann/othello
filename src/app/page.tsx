@@ -29,31 +29,36 @@ export default function Home() {
     console.log(x, y);
     const newBoard = structuredClone(board);
     newBoard[y][x] = turnColor;
-
-    for (const [dy, dx] of directions) {
-      console.log(dy, dx);
-      if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
-        midLoop: for (let num1 = 1; num1 < 9; num1++) {
-          console.log(num1);
-          if (board[y + dy * num1][x + dx * num1] === 0) {
-            break midLoop;
-          }
-          if (board[y + dy * num1][x + dx * num1] === turnColor) {
-            newBoard[y][x] = turnColor;
-            for (let num = 1; num < num1; num++) {
-              newBoard[y + dy * num][x + dx * num] = turnColor;
-              setBoard(newBoard);
+    let i: number = 0;
+    if (board[y][x] === 0) {
+      for (const [dy, dx] of directions) {
+        console.log(dy, dx);
+        if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
+          for (let num1 = 1; num1 < 9; num1++) {
+            if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
               console.log(newBoard);
+              console.log(num1);
+              break;
             }
-            break midLoop;
+            if (board[y + dy * num1][x + dx * num1] === turnColor) {
+              newBoard[y][x] = turnColor;
+              for (let num = 1; num < num1; num++) {
+                console.log(num);
+                newBoard[y + dy * num][x + dx * num] = turnColor;
+                setBoard(newBoard);
+                i = 2;
+                console.log(i);
+              }
+              break;
+            }
           }
         }
       }
 
-      if (dy === 1 && dx === 1) {
+      if (i > 1) {
         setTurnColor(2 / turnColor);
+        i = 1;
       }
-      continue;
     }
   };
   return (

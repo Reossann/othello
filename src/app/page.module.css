@@ -33,3 +33,15 @@
   background-position: 90px;
   border-radius: 28px;
 }
+
+.scoreBoard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 840px;
+  height: 150px;
+  background-color: black;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}

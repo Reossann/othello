@@ -41,7 +41,11 @@
   justify-content: center;
   width: 840px;
   height: 150px;
+  border: 6px solid beige;
+}
+
+.score {
+  width: 20px;
+  height: 20px;
   background-color: black;
-  background-repeat: no-repeat;
-  background-position: bottom;
 }

@@ -36,18 +36,14 @@ export default function Home() {
         if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
           for (let num1 = 1; num1 < 9; num1++) {
             if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
-              console.log(newBoard);
-              console.log(num1);
               break;
             }
             if (board[y + dy * num1][x + dx * num1] === turnColor) {
               newBoard[y][x] = turnColor;
               for (let num = 1; num < num1; num++) {
-                console.log(num);
                 newBoard[y + dy * num][x + dx * num] = turnColor;
                 setBoard(newBoard);
                 i = 2;
-                console.log(i);
               }
               break;
             }
@@ -63,19 +59,22 @@ export default function Home() {
   };
   return (
     <div className={styles.container}>
-      <div className={styles.board}>
-        {board.map((row, y) =>
-          row.map((color, x) => (
-            <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHandler(x, y)}>
-              {color !== 0 && (
-                <div
-                  className={styles.stone}
-                  style={{ background: color === 1 ? '#000' : '#fff' }}
-                />
-              )}
-            </div>
-          )),
-        )}
+      <div className={styles.scoreBoard}>
+        <div className={styles.score} />
+        <div className={styles.board}>
+          {board.map((row, y) =>
+            row.map((color, x) => (
+              <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHandler(x, y)}>
+                {color !== 0 && (
+                  <div
+                    className={styles.stone}
+                    style={{ background: color === 1 ? '#000' : '#fff' }}
+                  />
+                )}
+              </div>
+            )),
+          )}
+        </div>
       </div>
     </div>
   );

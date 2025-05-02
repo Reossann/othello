@@ -10,7 +10,7 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 1, 2, 0, 0, 0],
-    [0, 0, 0, 2, 1, 0, 0, 0],
+    [0, 0, 0, 2, 1, 3, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -68,7 +68,7 @@ export default function Home() {
                 {color !== 0 && (
                   <div
                     className={styles.stone}
-                    style={{ background: color === 1 ? '#000' : '#fff' }}
+                    style={{ background: color === 1 ? '#000' : color === 2 ? '#fff' : '#00f' }}
                   />
                 )}
               </div>

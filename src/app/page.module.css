@@ -49,3 +49,11 @@
   height: 20px;
   background-color: black;
 }
+
+.vision {
+  width: 56px;
+  height: 56px;
+  background-color: white;
+  background-position: 90px;
+  border-radius: 28px;
+}

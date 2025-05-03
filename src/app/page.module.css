@@ -43,7 +43,7 @@
   justify-content: center;
   width: 300px;
   height: 128px;
-  border: 6px solid yellowgreen;
+  background-color: red;
 }
 
 .scoreBoard2 {
@@ -55,25 +55,36 @@
   justify-content: center;
   width: 300px;
   height: 128px;
-  border: 6px solid yellowgreen;
+  background-color: red;
 }
 
 .score {
   position: absolute;
   top: 5%;
   left: 2px;
-  width: 140px;
-  height: 140px;
-  font-size: 50px;
-  font-style: normal;
+  width: 110px;
+  height: 110px;
+  background-color: black;
+  background-position: 90px;
+  border-radius: 55px;
 }
 
 .score2 {
   position: absolute;
   top: 5%;
   left: 2px;
-  width: 140px;
-  height: 140px;
-  font-size: 50px;
-  font-style: normal;
+  width: 110px;
+  height: 110px;
+  background-color: white;
+  background-position: 90px;
+  border-radius: 55px;
+}
+
+.count {
+  position: absolute;
+  top: 5%;
+  left: 8px;
+  width: 110px;
+  height: 110px;
+  font-size: 80px;
 }

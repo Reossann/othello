@@ -25,6 +25,7 @@ export default function Home() {
     [0, 1],
     [1, 1],
   ];
+
   const clickHandler = (x: number, y: number) => {
     console.log(x, y);
     const newBoard = structuredClone(board);
@@ -57,17 +58,24 @@ export default function Home() {
       }
     }
   };
+  type CountMap = Record<number, number>;
+  const flat = board.flat();
+  const counts = flat.reduce<CountMap>((acc, curr) => {
+    acc[curr] = (acc[curr] || 0) + 1;
+    return acc;
+  }, {} as CountMap);
+  console.log(counts[0]);
+  console.log(counts[1]);
   return (
     <div className={styles.container}>
       <div className={styles.scoreBoard}>
-        <div className={styles.score}>
-          <p>BLACK</p>
+        <div className={styles.score} />
+        <div className={styles.count}>
+          <p id="counts[1]"> </p>
         </div>
       </div>
       <div className={styles.scoreBoard2}>
-        <div className={styles.score2}>
-          <p>WHITE</p>
-        </div>
+        <div className={styles.score2} />
       </div>
       <div className={styles.board}>
         {board.map((row, y) =>

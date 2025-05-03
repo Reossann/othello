@@ -60,21 +60,28 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.scoreBoard}>
-        <div className={styles.score} />
-        <div className={styles.board}>
-          {board.map((row, y) =>
-            row.map((color, x) => (
-              <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHandler(x, y)}>
-                {color !== 0 && (
-                  <div
-                    className={styles.stone}
-                    style={{ background: color === 1 ? '#000' : color === 2 ? '#fff' : '#00f' }}
-                  />
-                )}
-              </div>
-            )),
-          )}
+        <div className={styles.score}>
+          <p>BLACK</p>
         </div>
+      </div>
+      <div className={styles.scoreBoard2}>
+        <div className={styles.score2}>
+          <p>WHITE</p>
+        </div>
+      </div>
+      <div className={styles.board}>
+        {board.map((row, y) =>
+          row.map((color, x) => (
+            <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHandler(x, y)}>
+              {color !== 0 && (
+                <div
+                  className={styles.stone}
+                  style={{ background: color === 1 ? '#000' : color === 2 ? '#fff' : '#00f' }}
+                />
+              )}
+            </div>
+          )),
+        )}
       </div>
     </div>
   );

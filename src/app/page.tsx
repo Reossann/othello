@@ -66,16 +66,33 @@ export default function Home() {
   }, {} as CountMap);
   console.log(counts[0]);
   console.log(counts[1]);
+  const count1 = counts[1];
+  const stcount1: string = String(count1);
+  const nles = document.getElementById('target');
+  if (nles) {
+    nles.textContent = stcount1;
+  }
+  const count2 = counts[2];
+  const stcount2: string = String(count2);
+  const nles2 = document.getElementById('target2');
+  if (nles2) {
+    nles2.textContent = stcount2;
+  }
   return (
     <div className={styles.container}>
       <div className={styles.scoreBoard}>
-        <div className={styles.score} />
-        <div className={styles.count}>
-          <p id="counts[1]"> </p>
+        <div className={styles.score}>
+          <div className={styles.count}>
+            <p id="target">2</p>
+          </div>
         </div>
       </div>
       <div className={styles.scoreBoard2}>
-        <div className={styles.score2} />
+        <div className={styles.score2}>
+          <div className={styles.count}>
+            <p id="target2">2</p>
+          </div>
+        </div>
       </div>
       <div className={styles.board}>
         {board.map((row, y) =>

@@ -10,7 +10,7 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 1, 2, 0, 0, 0],
-    [0, 0, 0, 2, 1, 3, 0, 0],
+    [0, 0, 0, 2, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -31,7 +31,7 @@ export default function Home() {
     const newBoard = structuredClone(board);
     newBoard[y][x] = turnColor;
     let i: number = 0;
-    if (board[y][x] === 0) {
+    if (board[y][x] === 0 || board[y][x] === 3) {
       for (const [dy, dx] of directions) {
         console.log(dy, dx);
         if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
@@ -58,6 +58,33 @@ export default function Home() {
       }
     }
   };
+  const newBoard = structuredClone(board);
+  board.map((row, y) =>
+    row.map((color, x) => {
+      if (color === 3) {
+        newBoard[y][x] = 0;
+      }
+      if (color === 0) {
+        for (const [dy, dx] of directions) {
+          console.log(dy, dx);
+          if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
+            for (let num1 = 1; num1 < 9; num1++) {
+              if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
+                break;
+              }
+              if (board[y + dy * num1][x + dx * num1] === turnColor) {
+                newBoard[y][x] = 3;
+
+                setBoard(newBoard);
+
+                break;
+              }
+            }
+          }
+        }
+      }
+    }),
+  );
   type CountMap = Record<number, number>;
   const flat = board.flat();
   const counts = flat.reduce<CountMap>((acc, curr) => {

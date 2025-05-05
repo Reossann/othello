@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -15,16 +15,20 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  const directions = [
-    [1, 0],
-    [1, -1],
-    [0, -1],
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, 1],
-    [1, 1],
-  ];
+  const directions = useMemo(
+    () =>
+      [
+        [1, 0],
+        [1, -1],
+        [0, -1],
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, 1],
+        [1, 1],
+      ] as const,
+    [],
+  );
 
   const clickHandler = (x: number, y: number) => {
     console.log(x, y);
@@ -43,8 +47,9 @@ export default function Home() {
               newBoard[y][x] = turnColor;
               for (let num = 1; num < num1; num++) {
                 newBoard[y + dy * num][x + dx * num] = turnColor;
-                setBoard(newBoard);
+
                 i = 2;
+                setBoard(newBoard);
               }
               break;
             }
@@ -58,33 +63,36 @@ export default function Home() {
       }
     }
   };
-  const newBoard = structuredClone(board);
-  board.map((row, y) =>
-    row.map((color, x) => {
-      if (color === 3) {
-        newBoard[y][x] = 0;
-      }
-      if (color === 0) {
-        for (const [dy, dx] of directions) {
-          console.log(dy, dx);
-          if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
-            for (let num1 = 1; num1 < 9; num1++) {
-              if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
-                break;
-              }
-              if (board[y + dy * num1][x + dx * num1] === turnColor) {
-                newBoard[y][x] = 3;
 
-                setBoard(newBoard);
+  useEffect(() => {
+    const newBoard = structuredClone(board);
+    for (let y = 0; y < 8; y++) {
+      for (let x = 0; x < 8; x++) {
+        if (newBoard[y][x] === 0) {
+          for (const [dy, dx] of directions) {
+            //console.log(dy, dx);
+            if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
+              for (let num1 = 1; num1 < 9; num1++) {
+                if (
+                  board[y + dy * num1] === undefined ||
+                  board[y + dy * num1][x + dx * num1] === 0
+                ) {
+                  break;
+                }
+                if (board[y + dy * num1][x + dx * num1] === turnColor) {
+                  newBoard[y][x] = 3;
 
-                break;
+                  break;
+                }
               }
             }
           }
         }
       }
-    }),
-  );
+    }
+    setBoard(newBoard);
+  }, [board, turnColor, directions]);
+
   type CountMap = Record<number, number>;
   const flat = board.flat();
   const counts = flat.reduce<CountMap>((acc, curr) => {
@@ -95,6 +103,7 @@ export default function Home() {
   console.log(counts[1]);
   const count1 = counts[1];
   const count2 = counts[2];
+
   return (
     <div className={styles.container}>
       <div className={styles.scoreBoard}>

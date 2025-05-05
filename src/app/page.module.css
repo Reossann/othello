@@ -82,17 +82,8 @@
 
 .count {
   position: absolute;
-  top: -70%;
+  top: 0%;
   left: 200px;
-  width: 110px;
-  height: 110px;
-  font-size: 80px;
-}
-
-.count2 {
-  position: absolute;
-  top: -70%;
-  right: 200px;
   width: 110px;
   height: 110px;
   font-size: 80px;

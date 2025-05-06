@@ -107,12 +107,12 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.scoreBoar}>
+      <div className={styles.scoreBoard}>
         <div className={styles.score}>
           <div className={styles.count}>{count1}</div>
         </div>
       </div>
-      <div className={styles.scoreBoar2}>
+      <div className={styles.scoreBoard2}>
         <div className={styles.score2}>
           <div className={styles.count}>{count2}</div>
         </div>

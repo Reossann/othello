@@ -34,14 +34,12 @@ export default function Home() {
     let i: number = 0;
     if (board[y][x] === 0 || board[y][x] === 3) {
       for (const [dy, dx] of directions) {
-        console.log(dy, dx);
         if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
           for (let num1 = 1; num1 < 9; num1++) {
             if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
               break;
             }
             if (board[y + dy * num1][x + dx * num1] === turnColor) {
-              console.log(num1);
               newBoard[y][x] = turnColor;
               for (let num = 1; num < num1; num++) {
                 newBoard[y + dy * num][x + dx * num] = turnColor;
@@ -61,7 +59,6 @@ export default function Home() {
       }
     }
     for (let y = 0; y < 8; ++y) {
-      console.log(y);
       for (let x = 0; x < 8; ++x) {
         if (newBoard[y][x] === 3) {
           {
@@ -72,7 +69,7 @@ export default function Home() {
 
         if (newBoard[y][x] === 0) {
           for (const [dy, dx] of directions) {
-            console.log(dy, dx);
+            console.log(y);
             if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
               for (let num1 = 1; num1 < 9; num1++) {
                 if (
@@ -85,6 +82,7 @@ export default function Home() {
                   for (let num = 1; num < num1; num++) {
                     newBoard[y][x] = 3;
                   }
+                  setBoard(newBoard);
                 }
               }
             }
@@ -92,7 +90,10 @@ export default function Home() {
         }
       }
     }
+    console.log(newBoard);
+    console.log(turnColor);
   };
+
   type CountMap = Record<number, number>;
   const flat = board.flat();
   const counts = flat.reduce<CountMap>((acc, curr) => {
@@ -106,12 +107,12 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.scoreBoard}>
+      <div className={styles.scoreBoar}>
         <div className={styles.score}>
           <div className={styles.count}>{count1}</div>
         </div>
       </div>
-      <div className={styles.scoreBoard2}>
+      <div className={styles.scoreBoar2}>
         <div className={styles.score2}>
           <div className={styles.count}>{count2}</div>
         </div>

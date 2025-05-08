@@ -29,13 +29,12 @@ export default function Home() {
   const clickHandler = (x: number, y: number) => {
     console.log(x, y);
     const newBoard = structuredClone(board);
-    newBoard[y][x] = turnColor;
-
     let i: number = 0;
     if (board[y][x] === 0 || board[y][x] === 3) {
       for (const [dy, dx] of directions) {
         if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
           for (let num1 = 1; num1 < 9; num1++) {
+            console.log(num1);
             if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
               break;
             }
@@ -45,7 +44,6 @@ export default function Home() {
                 newBoard[y + dy * num][x + dx * num] = turnColor;
 
                 i = 2;
-                setBoard(newBoard);
               }
               break;
             }
@@ -57,21 +55,27 @@ export default function Home() {
         setTurnColor(2 / turnColor);
         i = 1;
       }
+      setBoard(newBoard);
     }
+    console.log(newBoard);
     for (let y = 0; y < 8; ++y) {
       for (let x = 0; x < 8; ++x) {
         if (newBoard[y][x] === 3) {
-          {
-            newBoard[y][x] = 0;
-            setBoard(newBoard);
-          }
+          console.log(9);
+          newBoard[y][x] = 0;
         }
+      }
+    }
+    console.log(newBoard);
+    setBoard(newBoard);
 
+    for (let y = 0; y < 8; ++y) {
+      for (let x = 0; x < 8; ++x) {
         if (newBoard[y][x] === 0) {
           for (const [dy, dx] of directions) {
-            console.log(y);
             if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
               for (let num1 = 1; num1 < 9; num1++) {
+                console.log(y);
                 if (
                   board[y + dy * num1] === undefined ||
                   board[y + dy * num1][x + dx * num1] === 0
@@ -82,7 +86,6 @@ export default function Home() {
                   for (let num = 1; num < num1; num++) {
                     newBoard[y][x] = 3;
                   }
-                  setBoard(newBoard);
                 }
               }
             }
@@ -92,6 +95,7 @@ export default function Home() {
     }
     console.log(newBoard);
     console.log(turnColor);
+    setBoard(newBoard);
   };
 
   type CountMap = Record<number, number>;

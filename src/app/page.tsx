@@ -29,7 +29,10 @@ export default function Home() {
   const clickHandler = (x: number, y: number) => {
     console.log(x, y);
     const newBoard = structuredClone(board);
+    console.log(newBoard);
     let i: number = 0;
+    setBoard(newBoard);
+    console.log(newBoard);
     if (board[y][x] === 0 || board[y][x] === 3) {
       for (const [dy, dx] of directions) {
         if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
@@ -55,14 +58,13 @@ export default function Home() {
         setTurnColor(2 / turnColor);
         i = 1;
       }
-      setBoard(newBoard);
     }
-    console.log(newBoard);
+
     for (let y = 0; y < 8; ++y) {
       for (let x = 0; x < 8; ++x) {
         if (newBoard[y][x] === 3) {
           console.log(9);
-          newBoard[y][x] = 0;
+          newBoard[y][x] = 90;
         }
       }
     }
@@ -95,7 +97,6 @@ export default function Home() {
     }
     console.log(newBoard);
     console.log(turnColor);
-    setBoard(newBoard);
   };
 
   type CountMap = Record<number, number>;

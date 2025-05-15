@@ -42,7 +42,7 @@ export default function Home() {
     console.log(newBoard);
     let i: number = 0;
     console.log(i);
-    setBoard(newBoard);
+
     console.log(newBoard);
     if (board[y][x] === 0 || board[y][x] === 3) {
       console.log(8);
@@ -71,8 +71,30 @@ export default function Home() {
         i = 1;
       }
     }
+    for (let y = 0; y < 8; y++) {
+      for (let x = 0; x < 8; x++) {
+        if (newBoard[y][x] === 0) {
+          for (const [dy, dx] of directions) {
+            if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
+              for (let num1 = 1; num1 < 9; num1++) {
+                console.log(num1);
+                if (
+                  board[y + dy * num1] === undefined ||
+                  board[y + dy * num1][x + dx * num1] === 0
+                ) {
+                  break;
+                }
+                if (board[y + dy * num1][x + dx * num1] === turnColor) {
+                  newBoard[y][x] = 3;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    setBoard(newBoard);
   };
-
   type CountMap = Record<number, number>;
   const flat = board.flat();
   const counts = flat.reduce<CountMap>((acc, curr) => {

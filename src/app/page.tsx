@@ -21,10 +21,10 @@ const turn = (
   turnColor: number,
 ) => {
   const newBoard = structuredClone(board);
+  const flagB = flag;
+  flagB.b = false;
 
   if (board[y][x] === 0 || board[y][x] === 3) {
-    const flagB = flag;
-    flagB.b = false;
     for (const [dy, dx] of directions) {
       if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
         for (let num1 = 1; num1 < 9; num1++) {
@@ -81,13 +81,15 @@ export default function Home() {
   const [board, setBoard] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 3, 0, 0, 0],
-    [0, 0, 0, 1, 2, 3, 0, 0],
-    [0, 0, 3, 2, 1, 0, 0, 0],
-    [0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 2, 0, 0, 0],
+    [0, 0, 0, 2, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
+  const p = vision(board, turnColor);
+  console.log(p);
   const clickHandler = (x: number, y: number) => {
     console.log(x, y);
     const p = turn(board, y, x, directions, turnColor);
@@ -126,7 +128,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.board}>
-        {board.map((row, y) =>
+        {p.map((row, y) =>
           row.map((color, x) => (
             <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHandler(x, y)}>
               {color !== 0 && (

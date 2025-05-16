@@ -110,6 +110,7 @@ export default function Home() {
     setTurnColor(2 / turnColor);
     return setBoard(m);
   };
+
   type CountMap = Record<number, number>;
   const flat = board.flat();
   const counts = flat.reduce<CountMap>((acc, curr) => {
@@ -118,8 +119,14 @@ export default function Home() {
   }, {} as CountMap);
   console.log(counts[0]);
   console.log(counts[1]);
+  console.log(counts[2]);
+  console.log(counts[3]);
   const count1 = counts[1];
   const count2 = counts[2];
+  const tx = '';
+  if (counts[0] === undefined && counts[3] === undefined) {
+    console.log(100);
+  }
 
   return (
     <div className={styles.container}>
@@ -137,6 +144,9 @@ export default function Home() {
         <div onClick={pass}>
           <p style={{ color: 'purple', fontSize: 100 }}>パス</p>
         </div>
+      </div>
+      <div className={styles.scoreBoard4}>
+        <p style={{ color: 'purple', fontSize: 100 }}>{tx}</p>
       </div>
       <div className={styles.board}>
         {p.map((row, y) =>

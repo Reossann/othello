@@ -104,6 +104,12 @@ export default function Home() {
     const m = vision(p, turnColor);
     setBoard(m);
   };
+  const pass = () => {
+    const newBoard = structuredClone(board);
+    const m = vision(newBoard, 2 / turnColor);
+    setTurnColor(2 / turnColor);
+    return setBoard(m);
+  };
   type CountMap = Record<number, number>;
   const flat = board.flat();
   const counts = flat.reduce<CountMap>((acc, curr) => {
@@ -125,6 +131,11 @@ export default function Home() {
       <div className={styles.scoreBoard2}>
         <div className={styles.score2}>
           <div className={styles.count}>{count2}</div>
+        </div>
+      </div>
+      <div className={styles.scoreBoard3}>
+        <div onClick={pass}>
+          <p style={{ color: 'purple', fontSize: 100 }}>パス</p>
         </div>
       </div>
       <div className={styles.board}>

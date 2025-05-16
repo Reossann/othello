@@ -2,6 +2,79 @@
 
 import { useState } from 'react';
 import styles from './page.module.css';
+const directions = [
+  [1, 0],
+  [1, -1],
+  [0, -1],
+  [-1, -1],
+  [-1, 0],
+  [-1, 1],
+  [0, 1],
+  [1, 1],
+];
+const flag = { b: false };
+const turn = (
+  board: number[][],
+  y: number,
+  x: number,
+  directions: number[][],
+  turnColor: number,
+) => {
+  const newBoard = structuredClone(board);
+
+  if (board[y][x] === 0 || board[y][x] === 3) {
+    const flagB = flag;
+    flagB.b = false;
+    for (const [dy, dx] of directions) {
+      if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
+        for (let num1 = 1; num1 < 9; num1++) {
+          if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
+            break;
+          }
+          if (board[y + dy * num1][x + dx * num1] === turnColor) {
+            flagB.b = true;
+            newBoard[y][x] = turnColor;
+            for (let num = 1; num < num1; num++) {
+              newBoard[y + dy * num][x + dx * num] = turnColor;
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+  return newBoard;
+};
+
+const vision = (board: number[][], turnColor: number) => {
+  const newBoard = structuredClone(board);
+  for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < 8; x++) {
+      if (newBoard[y][x] === 3) {
+        newBoard[y][x] = 0;
+      }
+    }
+  }
+  for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < 8; x++) {
+      if (newBoard[y][x] === 0) {
+        for (const [dy, dx] of directions) {
+          if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
+            for (let num1 = 1; num1 < 9; num1++) {
+              if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
+                break;
+              }
+              if (board[y + dy * num1][x + dx * num1] === turnColor) {
+                newBoard[y][x] = 3;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return newBoard;
+};
 
 export default function Home() {
   const [turnColor, setTurnColor] = useState(1);
@@ -15,85 +88,19 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  const [board2, setBoard2] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 3, 0, 0, 0],
-    [0, 0, 0, 1, 2, 3, 0, 0],
-    [0, 0, 3, 2, 1, 0, 0, 0],
-    [0, 0, 0, 3, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-  ]);
-  const directions = [
-    [1, 0],
-    [1, -1],
-    [0, -1],
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, 1],
-    [1, 1],
-  ];
-
   const clickHandler = (x: number, y: number) => {
     console.log(x, y);
-    const newBoard = structuredClone(board);
-    console.log(newBoard);
-    let i: number = 0;
-    console.log(i);
-
-    console.log(newBoard);
-    if (board[y][x] === 0 || board[y][x] === 3) {
-      console.log(8);
-      for (const [dy, dx] of directions) {
-        if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
-          for (let num1 = 1; num1 < 9; num1++) {
-            console.log(num1);
-            if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
-              break;
-            }
-            if (board[y + dy * num1][x + dx * num1] === turnColor) {
-              newBoard[y][x] = turnColor;
-              for (let num = 1; num < num1; num++) {
-                newBoard[y + dy * num][x + dx * num] = turnColor;
-
-                i = 2;
-              }
-              break;
-            }
-          }
-        }
-      }
-
-      if (i > 1) {
-        setTurnColor(2 / turnColor);
-        i = 1;
-      }
+    const p = turn(board, y, x, directions, turnColor);
+    const primB: boolean = flag.b;
+    if (primB) {
+      console.log(primB);
+      const m = vision(p, 2 / turnColor);
+      setTurnColor(2 / turnColor);
+      return setBoard(m);
     }
-    for (let y = 0; y < 8; y++) {
-      for (let x = 0; x < 8; x++) {
-        if (newBoard[y][x] === 0) {
-          for (const [dy, dx] of directions) {
-            if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
-              for (let num1 = 1; num1 < 9; num1++) {
-                console.log(num1);
-                if (
-                  board[y + dy * num1] === undefined ||
-                  board[y + dy * num1][x + dx * num1] === 0
-                ) {
-                  break;
-                }
-                if (board[y + dy * num1][x + dx * num1] === turnColor) {
-                  newBoard[y][x] = 3;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    setBoard(newBoard);
+
+    const m = vision(p, turnColor);
+    setBoard(m);
   };
   type CountMap = Record<number, number>;
   const flat = board.flat();

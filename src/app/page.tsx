@@ -80,7 +80,11 @@ const vision = (board: number[][], turnColor: number) => {
   return newBoard;
 };
 
-const result = (a: number, b: number, c: number) => {
+const result = (a: number, b: number, c: number, d: number) => {
+  if (d === undefined) {
+    const tx = '強制終了だす';
+    return tx;
+  }
   if (a === b) {
     const tx = '均衡中。。。';
     return tx;
@@ -104,7 +108,7 @@ const result = (a: number, b: number, c: number) => {
     return tx;
   }
 };
-
+let passcounter = 0;
 export default function Home() {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
@@ -120,28 +124,32 @@ export default function Home() {
   const p = vision(board, turnColor);
   console.log(p);
   const clickHandler = (x: number, y: number) => {
-    console.log(x, y);
-    const p = turn(board, y, x, directions, turnColor);
-    const primB: boolean = flag.b;
-    if (primB) {
-      console.log(primB);
-      const m = vision(p, 2 / turnColor);
-      setTurnColor(2 / turnColor);
-      return setBoard(m);
-    }
+    if (board[y][x] !== undefined) {
+      console.log(x, y);
+      const p = turn(board, y, x, directions, turnColor);
+      const primB: boolean = flag.b;
+      if (primB) {
+        console.log(primB);
+        const m = vision(p, 2 / turnColor);
+        setTurnColor(2 / turnColor);
+        return setBoard(m);
+      }
 
-    const m = vision(p, turnColor);
-    setBoard(m);
+      const m = vision(p, turnColor);
+      setBoard(m);
+      console.log(100);
+    }
   };
   const pass = () => {
     const newBoard = structuredClone(board);
     const m = vision(newBoard, 2 / turnColor);
     setTurnColor(2 / turnColor);
+    console.log(10);
     return setBoard(m);
   };
 
   type CountMap = Record<number, number>;
-  const flat = board.flat();
+  const flat = p.flat();
   const counts = flat.reduce<CountMap>((acc, curr) => {
     acc[curr] = (acc[curr] || 0) + 1;
     return acc;
@@ -152,7 +160,17 @@ export default function Home() {
   console.log(counts[3]);
   const count1 = counts[1];
   const count2 = counts[2];
-  const txs = result(counts[1], counts[2], counts[0]);
+  const txs = result(counts[1], counts[2], counts[0], counts[3]);
+  if (counts[0] <= 58 && counts[3] === undefined) {
+    if (passcounter !== 2) {
+      passcounter += 1;
+      console.log(passcounter);
+      if (passcounter === 2) {
+        return clickHandler(4, 4);
+      }
+      return pass;
+    }
+  }
 
   return (
     <div className={styles.container}>

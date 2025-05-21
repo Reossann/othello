@@ -80,15 +80,7 @@ const vision = (board: number[][], turnColor: number) => {
   return newBoard;
 };
 
-const result = (a: number, b: number, c: number, d: number, e: number, f: number) => {
-  if (e === 5) {
-    const tx = '白圧勝！！';
-    return tx;
-  }
-  if (f === 5) {
-    const tx = '黒圧勝！！';
-    return tx;
-  }
+const result = (a: number, b: number, c: number, d: number) => {
   if (d === undefined) {
     const tx = '強制終了だす';
     return tx;
@@ -108,17 +100,15 @@ const result = (a: number, b: number, c: number, d: number, e: number, f: number
     }
   }
   if (a < b) {
-    const tx = '白優勢！！！！';
+    const tx = '白優勢！！';
     return tx;
   }
   if (a > b) {
-    const tx = '黒優勢！！！！';
+    const tx = '黒優勢！！';
     return tx;
   }
 };
 let passcounter = 0;
-let bpass = 0;
-let wpass = 0;
 export default function Home() {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
@@ -139,13 +129,6 @@ export default function Home() {
       const p = turn(board, y, x, directions, turnColor);
       const primB: boolean = flag.b;
       if (primB) {
-        if (turnColor === 1) {
-          bpass = 0;
-        }
-        if (turnColor === 2) {
-          wpass = 0;
-        }
-
         console.log(primB);
         const m = vision(p, 2 / turnColor);
         setTurnColor(2 / turnColor);
@@ -158,12 +141,6 @@ export default function Home() {
     }
   };
   const pass = () => {
-    if (turnColor === 1) {
-      bpass += 1;
-    }
-    if (turnColor === 2) {
-      wpass += 1;
-    }
     const newBoard = structuredClone(board);
     const m = vision(newBoard, 2 / turnColor);
     setTurnColor(2 / turnColor);
@@ -182,10 +159,9 @@ export default function Home() {
   console.log(counts[2]);
   console.log(counts[3]);
   console.log(1000);
-  console.log(bpass);
   const count1 = counts[1];
   const count2 = counts[2];
-  const txs = result(counts[1], counts[2], counts[0], counts[3], bpass, wpass);
+  const txs = result(counts[1], counts[2], counts[0], counts[3]);
   if (counts[0] <= 58 && counts[3] === undefined) {
     if (passcounter !== 2) {
       passcounter += 1;
@@ -195,14 +171,6 @@ export default function Home() {
       }
       return pass;
     }
-  }
-  if (bpass === 3) {
-    bpass = 5;
-    return result(counts[1], counts[2], counts[0], counts[3], bpass, wpass);
-  }
-  if (wpass === 3) {
-    wpass = 5;
-    return result(counts[1], counts[2], counts[0], counts[3], bpass, wpass);
   }
 
   return (
@@ -223,7 +191,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.scoreBoard4}>
-        <p style={{ color: 'purple', fontSize: 100 }}>{txs}</p>
+        <p style={{ color: 'purple', fontSize: 50 }}>{txs}</p>
       </div>
       <div className={styles.board}>
         {p.map((row, y) =>

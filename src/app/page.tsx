@@ -109,6 +109,10 @@ const result = (a: number, b: number, c: number, d: number) => {
   }
 };
 let passcounter = 0;
+
+const restart = () => {
+  location.reload();
+};
 export default function Home() {
   const [turnColor, setTurnColor] = useState(1);
   const [board, setBoard] = useState([
@@ -144,7 +148,6 @@ export default function Home() {
     const newBoard = structuredClone(board);
     const m = vision(newBoard, 2 / turnColor);
     setTurnColor(2 / turnColor);
-    console.log(10);
     return setBoard(m);
   };
 
@@ -159,8 +162,8 @@ export default function Home() {
   console.log(counts[2]);
   console.log(counts[3]);
   console.log(1000);
-  const count1 = counts[1];
-  const count2 = counts[2];
+  const count1 = counts[1] === undefined ? 0 : counts[1];
+  const count2 = counts[2] === undefined ? 0 : counts[2];
   const txs = result(counts[1], counts[2], counts[0], counts[3]);
   if (counts[0] <= 58 && counts[3] === undefined) {
     if (passcounter !== 2) {
@@ -188,6 +191,11 @@ export default function Home() {
       <div className={styles.scoreBoard3}>
         <div onClick={pass}>
           <p style={{ color: 'purple', fontSize: 100 }}>パス</p>
+        </div>
+      </div>
+      <div className={styles.scoreBoard5}>
+        <div onClick={restart}>
+          <p style={{ color: 'purple', fontSize: 100 }}>リスタート</p>
         </div>
       </div>
       <div className={styles.scoreBoard4}>

@@ -12,6 +12,7 @@ const directions = [
   [0, 1],
   [1, 1],
 ];
+//ひっくり返す関数
 const flag = { b: false };
 const turn = (
   board: number[][],
@@ -45,7 +46,7 @@ const turn = (
   }
   return newBoard;
 };
-
+//候補地出すやつ
 const vision = (board: number[][], turnColor: number) => {
   const newBoard = structuredClone(board);
   for (let y = 0; y < 8; y++) {
@@ -79,7 +80,7 @@ const vision = (board: number[][], turnColor: number) => {
   }
   return newBoard;
 };
-
+//結果出すやつ（結構脳筋）
 const result = (a: number, b: number, c: number, d: number) => {
   if (d === undefined) {
     const tx = '強制終了だす';
@@ -109,7 +110,7 @@ const result = (a: number, b: number, c: number, d: number) => {
   }
 };
 let passcounter = 0;
-
+//やり直しボタン
 const restart = () => {
   location.reload();
 };
@@ -125,23 +126,20 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
+  //ここでpをmapで読み取れるようにしてる
   const p = vision(board, turnColor);
-  console.log(p);
   const clickHandler = (x: number, y: number) => {
     if (board[y][x] !== undefined) {
       console.log(x, y);
       const p = turn(board, y, x, directions, turnColor);
       const primB: boolean = flag.b;
       if (primB) {
-        console.log(primB);
         const m = vision(p, 2 / turnColor);
         setTurnColor(2 / turnColor);
         return setBoard(m);
       }
-
       const m = vision(p, turnColor);
       setBoard(m);
-      console.log(100);
     }
   };
   const pass = () => {
@@ -150,25 +148,20 @@ export default function Home() {
     setTurnColor(2 / turnColor);
     return setBoard(m);
   };
-
+  //ここで盤面の駒数数えてる
   type CountMap = Record<number, number>;
   const flat = p.flat();
   const counts = flat.reduce<CountMap>((acc, curr) => {
     acc[curr] = (acc[curr] || 0) + 1;
     return acc;
   }, {} as CountMap);
-  console.log(counts[0]);
-  console.log(counts[1]);
-  console.log(counts[2]);
-  console.log(counts[3]);
-  console.log(1000);
   const count1 = counts[1] === undefined ? 0 : counts[1];
   const count2 = counts[2] === undefined ? 0 : counts[2];
   const txs = result(counts[1], counts[2], counts[0], counts[3]);
+  //強制終了のやつ
   if (counts[0] <= 58 && counts[3] === undefined) {
     if (passcounter !== 2) {
       passcounter += 1;
-      console.log(passcounter);
       if (passcounter === 2) {
         return clickHandler(4, 4);
       }

@@ -29,7 +29,11 @@ const turn = (
     for (const [dy, dx] of directions) {
       if (board[y + dy] !== undefined && board[y + dy][x + dx] === 2 / turnColor) {
         for (let num1 = 1; num1 < 9; num1++) {
-          if (board[y + dy * num1] === undefined || board[y + dy * num1][x + dx * num1] === 0) {
+          if (
+            board[y + dy * num1] === undefined ||
+            board[y + dy * num1][x + dx * num1] === 0 ||
+            board[y + dy * num1][x + dx * num1] === 3
+          ) {
             break;
           }
           if (board[y + dy * num1][x + dx * num1] === turnColor) {
@@ -82,14 +86,6 @@ const vision = (board: number[][], turnColor: number) => {
 };
 //結果出すやつ（結構脳筋）
 const result = (a: number, b: number, c: number, d: number) => {
-  if (d === undefined) {
-    const tx = '強制終了だす';
-    return tx;
-  }
-  if (a === b) {
-    const tx = '均衡中。。。';
-    return tx;
-  }
   if (c === undefined) {
     if (a > b) {
       const tx = '黒勝利！！';
@@ -100,6 +96,15 @@ const result = (a: number, b: number, c: number, d: number) => {
       return tx;
     }
   }
+  if (d === undefined) {
+    const tx = '強制終了だす';
+    return tx;
+  }
+  if (a === b) {
+    const tx = '均衡中。。。';
+    return tx;
+  }
+
   if (a < b) {
     const tx = '白優勢！！';
     return tx;
@@ -113,6 +118,9 @@ let passcounter = 0;
 //やり直しボタン
 const restart = () => {
   location.reload();
+};
+const back = () => {
+  history.back();
 };
 export default function Home() {
   const [turnColor, setTurnColor] = useState(1);
@@ -188,7 +196,12 @@ export default function Home() {
       </div>
       <div className={styles.scoreBoard5}>
         <div onClick={restart}>
-          <p style={{ color: 'purple', fontSize: 100 }}>リスタート</p>
+          <p style={{ color: 'purple', fontSize: 60 }}>リスタート</p>
+        </div>
+      </div>
+      <div className={styles.scoreBoard6}>
+        <div onClick={back}>
+          <p style={{ color: 'purple', fontSize: 60 }}>時を戻そう。。。</p>
         </div>
       </div>
       <div className={styles.scoreBoard4}>

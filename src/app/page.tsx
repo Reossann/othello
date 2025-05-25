@@ -86,7 +86,7 @@ const vision = (board: number[][], turnColor: number) => {
 };
 //結果出すやつ（結構脳筋）
 const result = (a: number, b: number, c: number, d: number) => {
-  if (c === undefined) {
+  if (c === undefined && d === undefined) {
     if (a > b) {
       const tx = '黒勝利！！';
       return tx;
@@ -166,6 +166,24 @@ export default function Home() {
   const count1 = counts[1] === undefined ? 0 : counts[1];
   const count2 = counts[2] === undefined ? 0 : counts[2];
   const txs = result(counts[1], counts[2], counts[0], counts[3]);
+  //勝利したのがわかったら終わらせる
+  let timer = 4;
+  if (txs === '白勝利！！') {
+    setInterval(() => {
+      timer -= 1;
+      if (timer === 0) {
+        location.reload();
+      }
+    }, 1000);
+  }
+  if (txs === '黒勝利！！') {
+    setInterval(() => {
+      timer -= 1;
+      if (timer === 0) {
+        location.reload();
+      }
+    }, 1000);
+  }
   //強制終了のやつ
   if (counts[0] <= 58 && counts[3] === undefined) {
     if (passcounter !== 2) {

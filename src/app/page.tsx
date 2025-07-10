@@ -197,12 +197,22 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.scoreBoard}>
-        <div className={styles.score}>
+      <div className={styles.boxL}>
+        <div className={styles.scoreBoard}>
+          <div className={styles.score} />
           <div className={styles.count}>{count1}</div>
         </div>
+        <div className={styles.scoreBoard6}>
+          <div onClick={back}>
+            <p style={{ color: 'purple', fontSize: 60 }}>時を戻そう。。。</p>
+          </div>
+        </div>
+        <div className={styles.scoreBoard4}>
+          <p style={{ color: 'purple', fontSize: 50 }}>{txs}</p>
+        </div>
       </div>
-      <div className={styles.scoreBoard2}>
+
+      {/* <div className={styles.scoreBoard2}>
         <div className={styles.score2}>
           <div className={styles.count}>{count2}</div>
         </div>
@@ -216,15 +226,8 @@ export default function Home() {
         <div onClick={restart}>
           <p style={{ color: 'purple', fontSize: 60 }}>リスタート</p>
         </div>
-      </div>
-      <div className={styles.scoreBoard6}>
-        <div onClick={back}>
-          <p style={{ color: 'purple', fontSize: 60 }}>時を戻そう。。。</p>
-        </div>
-      </div>
-      <div className={styles.scoreBoard4}>
-        <p style={{ color: 'purple', fontSize: 50 }}>{txs}</p>
-      </div>
+      </div> */}
+
       <div className={styles.board}>
         {p.map((row, y) =>
           row.map((color, x) => (
@@ -239,6 +242,7 @@ export default function Home() {
           )),
         )}
       </div>
+      <div className={styles.boxR} />
     </div>
   );
 }

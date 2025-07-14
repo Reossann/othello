@@ -34,6 +34,9 @@
 }
 
 .boxR {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
   width: 20%;
   height: 100%;
   border: 2px solid red;
@@ -58,35 +61,23 @@
 }
 
 .scoreBoard2 {
-  position: absolute;
-  top: 75px;
-  right: 12%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   width: 300px;
   height: 128px;
   background-color: green;
 }
 
 .scoreBoard3 {
-  position: absolute;
-  top: 500px;
-  right: 200px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 300px;
   height: 128px;
   background-color: black;
 }
 
 .scoreBoard5 {
-  position: absolute;
-  top: 250px;
-  right: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -125,8 +116,6 @@
 
 .score2 {
   position: absolute;
-  top: 5%;
-  left: 2px;
   width: 110px;
   height: 110px;
   background-color: white;

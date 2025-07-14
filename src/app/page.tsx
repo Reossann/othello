@@ -212,22 +212,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* <div className={styles.scoreBoard2}>
-        <div className={styles.score2}>
-          <div className={styles.count}>{count2}</div>
-        </div>
-      </div>
-      <div className={styles.scoreBoard3}>
-        <div onClick={pass}>
-          <p style={{ color: 'purple', fontSize: 100 }}>パス</p>
-        </div>
-      </div>
-      <div className={styles.scoreBoard5}>
-        <div onClick={restart}>
-          <p style={{ color: 'purple', fontSize: 60 }}>リスタート</p>
-        </div>
-      </div> */}
-
       <div className={styles.board}>
         {p.map((row, y) =>
           row.map((color, x) => (
@@ -242,7 +226,23 @@ export default function Home() {
           )),
         )}
       </div>
-      <div className={styles.boxR} />
+      <div className={styles.boxR}>
+        <div className={styles.scoreBoard2}>
+          <div className={styles.score2}>
+            <div className={styles.count}>{count2}</div>
+          </div>
+        </div>
+        <div className={styles.scoreBoard3}>
+          <div onClick={pass}>
+            <p style={{ color: 'purple', fontSize: 100 }}>パス</p>
+          </div>
+        </div>
+        <div className={styles.scoreBoard5}>
+          <div onClick={restart}>
+            <p style={{ color: 'purple', fontSize: 60 }}>リスタート</p>
+          </div>
+        </div>{' '}
+      </div>
     </div>
   );
 }

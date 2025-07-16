@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { Board } from '../components/Board'; // Boardコンポーネントをインポート
+import { LeftPanel } from '../components/LeftPanel'; // LeftPanelをインポート
+import { RightPanel } from '../components/RightPanel'; // RightPanelをインポート
 import styles from './page.module.css';
 const directions = [
   [1, 0],
@@ -197,51 +200,9 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.boxL}>
-        <div className={styles.scoreBoard}>
-          <div className={styles.score} />
-          <div className={styles.count}>{count1}</div>
-        </div>
-        <div className={styles.scoreBoard6}>
-          <div onClick={back}>
-            <p style={{ color: 'purple', fontSize: 60 }}>時を戻そう。。。</p>
-          </div>
-        </div>
-        <div className={styles.scoreBoard4}>
-          <p style={{ color: 'purple', fontSize: 50 }}>{txs}</p>
-        </div>
-      </div>
-
-      <div className={styles.board}>
-        {p.map((row, y) =>
-          row.map((color, x) => (
-            <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHandler(x, y)}>
-              {color !== 0 && (
-                <div
-                  className={styles.stone}
-                  style={{ background: color === 1 ? '#000' : color === 2 ? '#fff' : '#00f' }}
-                />
-              )}
-            </div>
-          )),
-        )}
-      </div>
-      <div className={styles.boxR}>
-        <div className={styles.scoreBoard2}>
-          <div className={styles.score2} />
-          <div className={styles.count}>{count2}</div>
-        </div>
-        <div className={styles.scoreBoard3}>
-          <div onClick={pass}>
-            <p style={{ color: 'purple', fontSize: 100 }}>パス</p>
-          </div>
-        </div>
-        <div className={styles.scoreBoard5}>
-          <div onClick={restart}>
-            <p style={{ color: 'purple', fontSize: 60 }}>リスタート</p>
-          </div>
-        </div>{' '}
-      </div>
+      <LeftPanel score={count1} resultText={txs ?? ''} onBack={back} />
+      <Board board={p} onClick={clickHandler} />
+      <RightPanel score={count2} onPass={pass} onRestart={restart} />
     </div>
   );
 }

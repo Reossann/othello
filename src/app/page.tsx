@@ -228,9 +228,8 @@ export default function Home() {
       </div>
       <div className={styles.boxR}>
         <div className={styles.scoreBoard2}>
-          <div className={styles.score2}>
-            <div className={styles.count}>{count2}</div>
-          </div>
+          <div className={styles.score2} />
+          <div className={styles.count}>{count2}</div>
         </div>
         <div className={styles.scoreBoard3}>
           <div onClick={pass}>

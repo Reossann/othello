@@ -11,8 +11,10 @@
 .board {
   display: flex;
   flex-wrap: wrap;
-  width: 640px;
-  height: 640px;
+  width: 80vw;
+  max-width: 640px;
+  height: 80vw;
+  max-height: 640px;
   background-color: green;
 }
 
@@ -21,16 +23,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: 12.5%; /* 100% / 8 */
+  height: 12.5%; /* 100% / 8 */
   border: 1px solid black;
 }
 
 .stone {
-  width: 56px;
-  height: 56px;
-  background-color: white;
-  border-radius: 28px;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
 }
 
 .boxR {

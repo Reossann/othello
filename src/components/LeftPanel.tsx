@@ -14,7 +14,7 @@ export const LeftPanel = ({ score, resultText, onBack }: LeftPanelProps) => {
         <div className={styles.count}>{score}</div>
       </div>
       <div className={styles.scoreBoard6} onClick={onBack}>
-        <p style={{ color: 'purple', fontSize: 60 }}>時を戻そう。。。</p>
+        <p style={{ color: 'purple', fontSize: 60 }}>巻き戻し</p>
       </div>
       <div className={styles.scoreBoard4}>
         <p style={{ color: 'purple', fontSize: 50 }}>{resultText}</p>
